@@ -3,62 +3,19 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Initialize Firebase with server-provided config
-let app: any = null;
-let auth: any = null;
-let db: any = null;
-let storage: any = null;
-
-const initializeFirebase = async () => {
-  if (app) return { app, auth, db, storage };
-  
-  try {
-    const response = await fetch('/api/firebase-config');
-    const firebaseConfig = await response.json();
-    
-    // Validate config has required fields
-    if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-      throw new Error('Invalid Firebase configuration');
-    }
-    
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    storage = getStorage(app);
-    
-    console.log('Firebase initialized successfully');
-    return { app, auth, db, storage };
-  } catch (error) {
-    console.error('Firebase initialization failed:', error);
-    throw error;
-  }
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase services
-const getFirebaseServices = async () => {
-  if (!app) {
-    return await initializeFirebase();
-  }
-  return { app, auth, db, storage };
-};
+const app = initializeApp(firebaseConfig);
 
-// Export promise-based services for async initialization
-export const getAuth = async () => {
-  const services = await getFirebaseServices();
-  return services.auth;
-};
-
-export const getFirestore = async () => {
-  const services = await getFirebaseServices();
-  return services.db;
-};
-
-export const getStorage = async () => {
-  const services = await getFirebaseServices();
-  return services.storage;
-};
-
-// Export default instances for immediate use (will be null until initialized)
-export { auth, db, storage };
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export default app;
