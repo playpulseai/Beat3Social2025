@@ -65,7 +65,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isSuspended: false,
         createdAt: new Date(),
         updatedAt: new Date(),
-        stats: { posts: 0, following: 0, followers: 0 }
+        stats: { posts: 0, following: 0, followers: 0 },
+        bio: email === "derrickshaw@playpulseai.com" 
+          ? "Founder of Beat3 Social - Where AI meets education. Revolutionizing learning through Web3 technology."
+          : "Educator passionate about integrating AI and technology in learning."
       };
       
       const sessionData = { ...mockUser, userData: mockUserData };
@@ -107,7 +110,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         createdAt: new Date(),
         updatedAt: new Date(),
         stats: { posts: 0, following: 0, followers: 0 },
-        workEmail
+        workEmail,
+        bio: email === "derrickshaw@playpulseai.com" 
+          ? "Founder of Beat3 Social - Where AI meets education. Revolutionizing learning through Web3 technology."
+          : ""
       };
       
       const sessionData = { ...mockUser, userData: mockUserData };
