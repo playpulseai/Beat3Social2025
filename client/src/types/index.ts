@@ -1,5 +1,7 @@
 export * from "@shared/schema";
 
+import type { Post, User, Comment } from "@shared/schema";
+
 export interface AuthContextType {
   user: any;
   userData: any;

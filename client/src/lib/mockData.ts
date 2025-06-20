@@ -154,9 +154,12 @@ export const createMockPost = async (postData: any): Promise<string> => {
     authorId: postData.authorId,
     author: mockUsers.find(u => u.id === postData.authorId) || mockUsers[0],
     mediaUrls: [],
-    likes: 0,
-    shares: 0,
-    comments: 0,
+    mediaType: "none" as const,
+    likes: [],
+    shares: [],
+    comments: [],
+    isModerated: false,
+    isFlagged: false,
     createdAt: new Date(),
     updatedAt: new Date()
   };

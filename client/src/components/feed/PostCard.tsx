@@ -154,11 +154,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                 )}
               </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className={getRoleColor(post.author.role)}>
-                  {post.author.role.charAt(0).toUpperCase() + post.author.role.slice(1)}
+                <span className={getRoleColor(post.author?.role || "educator")}>
+                  {post.author?.role ? post.author.role.charAt(0).toUpperCase() + post.author.role.slice(1) : "Educator"}
                 </span>
                 <span>•</span>
-                <span>{formatDistanceToNow(post.createdAt, { addSuffix: true })}</span>
+                <span>{formatDistanceToNow(new Date(), { addSuffix: true })}</span>
               </div>
             </div>
           </div>
