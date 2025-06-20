@@ -183,7 +183,7 @@ const AdminDashboard: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 Admin Dashboard
               </DialogTitle>
               <p className="text-sm text-red-700 dark:text-red-300">
-                Deep3 Social B3 Platform Management
+                Beat3 Social B3 Platform Management
               </p>
             </div>
           </div>

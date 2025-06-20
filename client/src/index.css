@@ -110,12 +110,12 @@
 }
 
 @layer components {
-  /* Deep3 Social specific styles */
-  .deep3-gradient {
+  /* Beat3 Social specific styles */
+  .beat3-gradient {
     background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(120, 61%, 50%) 100%);
   }
   
-  .deep3-text-gradient {
+  .beat3-text-gradient {
     background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(120, 61%, 50%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -229,7 +229,7 @@
     min-height: 100svh;
   }
   
-  /* Deep3 Social color utilities */
+  /* Beat3 Social color utilities */
   .text-deep-blue {
     color: hsl(207, 90%, 54%);
   }

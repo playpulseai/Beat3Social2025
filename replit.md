@@ -1,8 +1,8 @@
-# Deep3 Social Platform
+# Beat3 Social Platform
 
 ## Overview
 
-Deep3 Social is an educational social media platform designed for teachers, parents, and educators. It combines React with Express.js to create a full-stack social networking application with features like post creation, user authentication, NFT minting capabilities, and administrative tools.
+Beat3 Social is an educational social media platform designed for teachers, parents, and educators. It combines React with Express.js to create a full-stack social networking application with features like post creation, user authentication, NFT minting capabilities, and administrative tools.
 
 ## System Architecture
 

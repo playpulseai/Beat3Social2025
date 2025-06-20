@@ -6,7 +6,7 @@ import { storage } from "./storage";
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes for Firebase Firestore integration
   app.get("/api/health", (req, res) => {
-    res.json({ status: "ok", message: "Deep3 Social API with Firebase Firestore" });
+    res.json({ status: "ok", message: "Beat3 Social API with Firebase Firestore" });
   });
 
   // User management endpoints
