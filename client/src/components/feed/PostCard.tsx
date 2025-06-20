@@ -133,17 +133,17 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Avatar className="h-10 w-10">
-              <AvatarImage src={post.author.profilePicture} alt={post.author.displayName} />
+              <AvatarImage src={post.author?.profilePicture || "/api/placeholder/40/40"} alt={post.author?.displayName || "User"} />
               <AvatarFallback>
-                {post.author.displayName?.charAt(0)?.toUpperCase() || "U"}
+                {post.author?.displayName?.charAt(0)?.toUpperCase() || "U"}
               </AvatarFallback>
             </Avatar>
             <div>
               <div className="flex items-center space-x-2">
                 <h4 className="font-semibold text-gray-900 dark:text-gray-100">
-                  {post.author.displayName}
+                  {post.author?.displayName || "Unknown User"}
                 </h4>
-                {post.author.isVerified && (
+                {post.author?.isVerified && (
                   <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
