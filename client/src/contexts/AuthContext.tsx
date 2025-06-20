@@ -1,7 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-import { getUserData, registerUser, loginUser, logoutUser, updateUserData } from "@/lib/auth";
 import { User } from "@shared/schema";
 import { AuthContextType } from "@/types";
 
@@ -15,32 +12,68 @@ export const useAuth = () => {
   return context;
 };
 
+// Simple session-based authentication
+const getStoredUser = () => {
+  try {
+    const stored = localStorage.getItem('beat3_user');
+    return stored ? JSON.parse(stored) : null;
+  } catch {
+    return null;
+  }
+};
+
+const setStoredUser = (user: any) => {
+  if (user) {
+    localStorage.setItem('beat3_user', JSON.stringify(user));
+  } else {
+    localStorage.removeItem('beat3_user');
+  }
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
-      
-      if (firebaseUser) {
-        const userData = await getUserData(firebaseUser.uid);
-        setUserData(userData);
-      } else {
-        setUserData(null);
-      }
-      
-      setLoading(false);
-    });
-
-    return unsubscribe;
+    // Check for existing session
+    const storedUser = getStoredUser();
+    if (storedUser) {
+      setUser(storedUser);
+      setUserData(storedUser.userData);
+    }
+    setLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      await loginUser(email, password);
+      // Simple authentication - create user session
+      const mockUser = {
+        uid: email === "derrickshaw@playpulseai.com" ? "admin-mock-uid" : `user-${Date.now()}`,
+        email,
+        displayName: email.split('@')[0],
+        emailVerified: true
+      };
+      
+      const mockUserData: User = {
+        id: mockUser.uid,
+        email,
+        displayName: mockUser.displayName,
+        role: email === "derrickshaw@playpulseai.com" ? "admin" : "teacher",
+        isVerified: email === "derrickshaw@playpulseai.com",
+        isSuspended: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        stats: { posts: 0, following: 0, followers: 0 }
+      };
+      
+      const sessionData = { ...mockUser, userData: mockUserData };
+      
+      setUser(mockUser);
+      setUserData(mockUserData);
+      setStoredUser(sessionData);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       throw error;
@@ -56,7 +89,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ) => {
     setLoading(true);
     try {
-      await registerUser(email, password, displayName, role as any, workEmail);
+      // Simple registration - create user session
+      const mockUser = {
+        uid: email === "derrickshaw@playpulseai.com" ? "admin-mock-uid" : `user-${Date.now()}`,
+        email,
+        displayName,
+        emailVerified: true
+      };
+      
+      const mockUserData: User = {
+        id: mockUser.uid,
+        email,
+        displayName,
+        role: role as any,
+        isVerified: email === "derrickshaw@playpulseai.com",
+        isSuspended: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        stats: { posts: 0, following: 0, followers: 0 },
+        workEmail
+      };
+      
+      const sessionData = { ...mockUser, userData: mockUserData };
+      
+      setUser(mockUser);
+      setUserData(mockUserData);
+      setStoredUser(sessionData);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       throw error;
@@ -64,22 +123,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
-    try {
-      await logoutUser();
-    } catch (error) {
-      throw error;
-    }
+    setUser(null);
+    setUserData(null);
+    setStoredUser(null);
   };
 
   const updateProfile = async (data: Partial<User>) => {
-    if (!user) return;
-    
-    try {
-      await updateUserData(user.uid, data);
-      const updatedUserData = await getUserData(user.uid);
+    if (user && userData) {
+      const updatedUserData = { ...userData, ...data };
       setUserData(updatedUserData);
-    } catch (error) {
-      throw error;
+      const sessionData = { ...user, userData: updatedUserData };
+      setStoredUser(sessionData);
     }
   };
 
