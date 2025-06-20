@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getPosts, createPost, likePost, sharePost, getComments, addComment } from "@/lib/firestore";
+import { getMockPosts, createMockPost } from "@/lib/mockData";
 import { getUserData } from "@/lib/auth";
 import { PostWithAuthor, CommentWithAuthor, CreatePostData } from "@/types";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
@@ -16,7 +17,15 @@ export const usePosts = () => {
     refetch,
   } = useQuery({
     queryKey: ["/api/posts", lastDoc],
-    queryFn: () => getPosts(lastDoc),
+    queryFn: async () => {
+      try {
+        return await getPosts(lastDoc);
+      } catch (error) {
+        // Fallback to mock data when Firebase is unavailable
+        console.log("Using mock data for posts");
+        return await getMockPosts();
+      }
+    },
   });
 
   useEffect(() => {
