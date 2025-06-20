@@ -1,0 +1,317 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  /* Sidebar variables */
+  --sidebar-background: hsl(0, 0%, 98%);
+  --sidebar-foreground: hsl(20, 14.3%, 4.1%);
+  --sidebar-primary: hsl(207, 90%, 54%);
+  --sidebar-primary-foreground: hsl(211, 100%, 99%);
+  --sidebar-accent: hsl(60, 4.8%, 95.9%);
+  --sidebar-accent-foreground: hsl(24, 9.8%, 10%);
+  --sidebar-border: hsl(20, 5.9%, 90%);
+  --sidebar-ring: hsl(20, 14.3%, 4.1%);
+  
+  /* Chart variables */
+  --chart-1: hsl(207, 90%, 54%);
+  --chart-2: hsl(10, 78%, 54%);
+  --chart-3: hsl(45, 93%, 47%);
+  --chart-4: hsl(120, 61%, 50%);
+  --chart-5: hsl(280, 87%, 47%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  
+  /* Dark mode sidebar variables */
+  --sidebar-background: hsl(240, 5.9%, 10%);
+  --sidebar-foreground: hsl(0, 0%, 95%);
+  --sidebar-primary: hsl(207, 90%, 54%);
+  --sidebar-primary-foreground: hsl(211, 100%, 99%);
+  --sidebar-accent: hsl(240, 3.7%, 15.9%);
+  --sidebar-accent-foreground: hsl(0, 0%, 98%);
+  --sidebar-border: hsl(240, 3.7%, 15.9%);
+  --sidebar-ring: hsl(240, 4.9%, 83.9%);
+  
+  /* Dark mode chart variables */
+  --chart-1: hsl(207, 90%, 61%);
+  --chart-2: hsl(10, 78%, 61%);
+  --chart-3: hsl(45, 93%, 54%);
+  --chart-4: hsl(120, 61%, 57%);
+  --chart-5: hsl(280, 87%, 54%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Custom scrollbar styles */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+}
+
+@layer components {
+  /* Deep3 Social specific styles */
+  .deep3-gradient {
+    background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(120, 61%, 50%) 100%);
+  }
+  
+  .deep3-text-gradient {
+    background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(120, 61%, 50%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Enhanced focus styles for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900;
+  }
+  
+  /* Loading animations */
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:scale-[1.02];
+  }
+  
+  /* Button hover effects */
+  .btn-hover {
+    @apply transition-all duration-200 hover:transform hover:scale-105;
+  }
+  
+  /* Text selection styles */
+  ::selection {
+    @apply bg-primary/20 text-primary-foreground;
+  }
+  
+  /* Custom badge styles for user roles */
+  .badge-teacher {
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+  }
+  
+  .badge-educator {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+  }
+  
+  .badge-parent {
+    @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200;
+  }
+  
+  .badge-admin {
+    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
+  }
+  
+  /* Tag styles for posts */
+  .tag-ai {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+  }
+  
+  .tag-education {
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+  }
+  
+  .tag-edtech {
+    @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200;
+  }
+  
+  .tag-stem {
+    @apply bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200;
+  }
+  
+  /* Animation for verified badges */
+  .verified-badge {
+    @apply animate-pulse-slow;
+  }
+  
+  /* Loading skeleton improvements */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded;
+  }
+  
+  /* Modal backdrop styles */
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm;
+  }
+  
+  /* Admin dashboard specific styles */
+  .admin-card {
+    @apply bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-950 dark:to-pink-950 border-red-200 dark:border-red-800;
+  }
+  
+  /* NFT minting styles */
+  .nft-card {
+    @apply bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950 dark:to-indigo-950 border-purple-200 dark:border-purple-800;
+  }
+  
+  /* AI moderation status styles */
+  .moderation-online {
+    @apply bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800;
+  }
+  
+  /* Trending topics styles */
+  .trending-item {
+    @apply hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer rounded-lg;
+  }
+}
+
+@layer utilities {
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Layout utilities */
+  .min-h-screen-safe {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+  
+  /* Deep3 Social color utilities */
+  .text-deep-blue {
+    color: hsl(207, 90%, 54%);
+  }
+  
+  .text-edu-green {
+    color: hsl(120, 61%, 50%);
+  }
+  
+  .text-highlight-amber {
+    color: hsl(45, 93%, 47%);
+  }
+  
+  .bg-deep-blue {
+    background-color: hsl(207, 90%, 54%);
+  }
+  
+  .bg-edu-green {
+    background-color: hsl(120, 61%, 50%);
+  }
+  
+  .bg-highlight-amber {
+    background-color: hsl(45, 93%, 47%);
+  }
+  
+  /* Border utilities */
+  .border-deep-blue {
+    border-color: hsl(207, 90%, 54%);
+  }
+  
+  .border-edu-green {
+    border-color: hsl(120, 61%, 50%);
+  }
+  
+  /* Shadow utilities */
+  .shadow-deep-blue {
+    box-shadow: 0 10px 15px -3px hsl(207, 90%, 54% / 0.1), 0 4px 6px -2px hsl(207, 90%, 54% / 0.05);
+  }
+  
+  .shadow-edu-green {
+    box-shadow: 0 10px 15px -3px hsl(120, 61%, 50% / 0.1), 0 4px 6px -2px hsl(120, 61%, 50% / 0.05);
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: hsl(0, 0%, 50%);
+    --input: hsl(0, 0%, 90%);
+  }
+  
+  .dark {
+    --border: hsl(0, 0%, 70%);
+    --input: hsl(0, 0%, 20%);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-pulse,
+  .animate-spin,
+  .animate-bounce {
+    animation: none !important;
+  }
+}
