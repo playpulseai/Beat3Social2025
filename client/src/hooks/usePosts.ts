@@ -64,11 +64,25 @@ export const useCreatePost = () => {
 
   return useMutation({
     mutationFn: async ({ postData, authorId }: { postData: CreatePostData; authorId: string }) => {
+      // Upload media files to Firebase Storage first
+      const mediaUrls: string[] = [];
+      
+      if (postData.mediaFiles && postData.mediaFiles.length > 0) {
+        const { uploadPostMedia } = await import("@/lib/storage");
+        
+        for (const file of postData.mediaFiles) {
+          const postId = Date.now().toString(); // Temporary ID for file naming
+          const url = await uploadPostMedia(file, authorId, postId);
+          mediaUrls.push(url);
+        }
+      }
+
       return createPost({
         content: postData.content,
         tags: postData.tags,
-        mediaUrls: [], // Will be populated after file upload
-        mediaType: postData.mediaFiles.length > 0 ? "image" : "none",
+        mediaUrls,
+        mediaType: postData.mediaFiles.length > 0 ? 
+          (postData.mediaFiles[0].type.startsWith('video/') ? 'video' : 'image') : 'none',
         authorId,
         isModerated: false,
         isFlagged: false,
