@@ -7,6 +7,34 @@ import fs from "fs";
 import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Firebase config endpoint - copy server env vars to client VITE_ vars
+  app.get('/api/firebase-config', (req, res) => {
+    // Clean and set VITE_ environment variables for client access
+    const cleanApiKey = process.env.FIREBASE_API_KEY?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
+    const cleanAuthDomain = process.env.FIREBASE_AUTH_DOMAIN?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
+    const cleanProjectId = process.env.FIREBASE_PROJECT_ID?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
+    const cleanStorageBucket = process.env.FIREBASE_STORAGE_BUCKET?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
+    const cleanMessagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
+    const cleanAppId = process.env.FIREBASE_APP_ID?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
+    
+    process.env.VITE_FIREBASE_API_KEY = cleanApiKey;
+    process.env.VITE_FIREBASE_AUTH_DOMAIN = cleanAuthDomain;
+    process.env.VITE_FIREBASE_PROJECT_ID = cleanProjectId;
+    process.env.VITE_FIREBASE_STORAGE_BUCKET = cleanStorageBucket;
+    process.env.VITE_FIREBASE_MESSAGING_SENDER_ID = cleanMessagingSenderId;
+    process.env.VITE_FIREBASE_APP_ID = cleanAppId;
+    
+    const config = {
+      apiKey: cleanApiKey,
+      authDomain: cleanAuthDomain,
+      projectId: cleanProjectId,
+      storageBucket: cleanStorageBucket,
+      messagingSenderId: cleanMessagingSenderId,
+      appId: cleanAppId,
+    };
+    res.json(config);
+  });
+
   // API routes for Firebase Firestore integration
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", message: "Beat3 Social API with Firebase Firestore" });

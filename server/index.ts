@@ -6,47 +6,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Firebase config endpoint - copy server env vars to client VITE_ vars
-app.get('/api/firebase-config', (req: Request, res: Response) => {
-  // Clean and set VITE_ environment variables for client access
-  const cleanApiKey = process.env.FIREBASE_API_KEY?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
-  const cleanAuthDomain = process.env.FIREBASE_AUTH_DOMAIN?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
-  const cleanProjectId = process.env.FIREBASE_PROJECT_ID?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
-  const cleanStorageBucket = process.env.FIREBASE_STORAGE_BUCKET?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
-  const cleanMessagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
-  const cleanAppId = process.env.FIREBASE_APP_ID?.replace(/^\s+|\s+$/g, '').replace(/\s/g, '');
-  
-  process.env.VITE_FIREBASE_API_KEY = cleanApiKey;
-  process.env.VITE_FIREBASE_AUTH_DOMAIN = cleanAuthDomain;
-  process.env.VITE_FIREBASE_PROJECT_ID = cleanProjectId;
-  process.env.VITE_FIREBASE_STORAGE_BUCKET = cleanStorageBucket;
-  process.env.VITE_FIREBASE_MESSAGING_SENDER_ID = cleanMessagingSenderId;
-  process.env.VITE_FIREBASE_APP_ID = cleanAppId;
-  
-  const config = {
-    apiKey: cleanApiKey,
-    authDomain: cleanAuthDomain,
-    projectId: cleanProjectId,
-    storageBucket: cleanStorageBucket,
-    messagingSenderId: cleanMessagingSenderId,
-    appId: cleanAppId,
-  };
-  res.json(config);
-});
 
-// File upload endpoint for fallback when Firebase Storage fails
-app.post('/api/upload', (req: Request, res: Response) => {
-  // For now, return a placeholder URL since we don't have persistent storage
-  // In production, this would upload to a cloud storage service
-  const fileId = `uploaded-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  const mockUrl = `/api/placeholder/150/150?text=${encodeURIComponent('Profile Photo')}&id=${fileId}`;
-  
-  res.json({ 
-    success: true, 
-    url: mockUrl,
-    message: 'File uploaded successfully (using fallback storage)'
-  });
-});
+
+
 
 app.use((req, res, next) => {
   const start = Date.now();
