@@ -1,21 +1,38 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth as getFirebaseAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getStorage as getFirebaseStorage } from "firebase/storage";
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+// Initialize Firebase with server config
+let firebaseApp: any = null;
+let firebaseAuth: any = null;
+let firebaseDb: any = null;
+let firebaseStorage: any = null;
+
+const initializeFirebase = async () => {
+  if (firebaseApp) return;
+  
+  try {
+    const response = await fetch('/api/firebase-config');
+    const config = await response.json();
+    
+    if (config.apiKey && config.projectId) {
+      firebaseApp = initializeApp(config);
+      firebaseAuth = getFirebaseAuth(firebaseApp);
+      firebaseDb = getFirestore(firebaseApp);
+      firebaseStorage = getFirebaseStorage(firebaseApp);
+      console.log('Firebase initialized successfully');
+    } else {
+      throw new Error('Invalid Firebase configuration');
+    }
+  } catch (error) {
+    console.warn('Firebase initialization failed:', error);
+  }
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase immediately
+initializeFirebase();
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-
-export default app;
+export const auth = firebaseAuth;
+export const db = firebaseDb;
+export const storage = firebaseStorage;
