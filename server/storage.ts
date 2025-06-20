@@ -31,6 +31,7 @@ export class MemStorage implements IStorage {
     const user: User = { 
       ...insertUser, 
       id,
+      isSuspended: insertUser.isSuspended ?? false,
       createdAt: new Date(),
       updatedAt: new Date(),
       stats: {

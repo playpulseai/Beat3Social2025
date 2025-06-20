@@ -34,6 +34,7 @@ export const registerUser = async (
       role,
       workEmail,
       isVerified: false,
+      isSuspended: false,
     };
 
     await setDoc(doc(db, "users", user.uid), {

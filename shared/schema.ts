@@ -13,7 +13,7 @@ export const UserSchema = z.object({
   bannerImage: z.string().optional(),
   bio: z.string().optional(),
   workEmail: z.string().email().optional(),
-  isSuspended: z.boolean().optional().default(false),
+  isSuspended: z.boolean().default(false),
   createdAt: z.date(),
   updatedAt: z.date(),
   stats: z.object({

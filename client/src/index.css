@@ -144,7 +144,7 @@
   
   /* Text selection styles */
   ::selection {
-    @apply bg-primary/20 text-primary-foreground;
+    @apply bg-primary bg-opacity-20 text-primary-foreground;
   }
   
   /* Custom badge styles for user roles */
