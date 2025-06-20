@@ -24,6 +24,16 @@ const Profile: React.FC = () => {
     bio: userData?.bio || "",
   });
 
+  // Update form data when userData changes
+  React.useEffect(() => {
+    if (userData) {
+      setFormData({
+        displayName: userData.displayName || "",
+        bio: userData.bio || "",
+      });
+    }
+  }, [userData]);
+
   if (!user || !userData) {
     return null;
   }
