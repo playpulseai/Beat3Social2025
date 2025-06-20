@@ -5,7 +5,7 @@ import { getUserData, registerUser, loginUser, logoutUser, updateUserData } from
 import { User } from "@shared/schema";
 import { AuthContextType } from "@/types";
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

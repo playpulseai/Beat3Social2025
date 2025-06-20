@@ -76,7 +76,7 @@ const Router: React.FC = () => {
       </Route>
 
       {/* Protected routes */}
-      <Route path="/" exact>
+      <Route path="/">
         <ProtectedRoute>
           <Feed />
         </ProtectedRoute>

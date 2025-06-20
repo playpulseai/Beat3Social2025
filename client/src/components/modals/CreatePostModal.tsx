@@ -93,16 +93,7 @@ const CreatePostModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       };
 
       await createPostMutation.mutateAsync({
-        postData: {
-          ...postData,
-          content: content.trim(),
-          tags: selectedTags,
-          mediaUrls,
-          mediaType: mediaFiles.length > 0 ? (mediaFiles[0].type.startsWith('video/') ? 'video' : 'image') : 'none',
-          authorId: user.uid,
-          isModerated: false,
-          isFlagged: false,
-        },
+        postData,
         authorId: user.uid,
       });
 
