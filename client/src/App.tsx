@@ -9,6 +9,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Pages
+import HomePage from "@/pages/HomePage";
+import AboutPage from "@/pages/AboutPage";
 import Feed from "@/pages/Feed";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
@@ -52,7 +54,7 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return <>{children}</>;
@@ -75,8 +77,12 @@ const Router: React.FC = () => {
         </PublicRoute>
       </Route>
 
+      {/* Public home and about pages */}
+      <Route path="/" component={HomePage} />
+      <Route path="/about" component={AboutPage} />
+
       {/* Protected routes */}
-      <Route path="/">
+      <Route path="/dashboard">
         <ProtectedRoute>
           <Feed />
         </ProtectedRoute>

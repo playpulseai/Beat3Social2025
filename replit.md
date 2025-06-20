@@ -114,6 +114,8 @@ Changelog:
 - June 20, 2025. Profile photo upload system implemented with persistent storage
 - June 20, 2025. Bio editing functionality fixed with proper form synchronization
 - June 20, 2025. Platform branding updated to "Beat3 Social" throughout application
+- June 20, 2025. HomePage and AboutPage created with comprehensive landing experience
+- June 20, 2025. Navigation restructured: public landing (/) and dashboard (/dashboard) for authenticated users
 ```
 
 ## User Preferences

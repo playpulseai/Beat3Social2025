@@ -1,0 +1,48 @@
+// HomePage.tsx
+import React from "react";
+import { Link } from "react-router-dom";
+
+export default function HomePage() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center bg-white dark:bg-gray-900">
+      <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+        Where <span className="text-blue-600">AI</span> Meets <span className="text-green-500">Education</span>
+      </h1>
+      <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8 max-w-2xl">
+        BEAT3 Social is a Web3-powered platform for teachers, parents, and educators to share content, celebrate learning, and connect around all things AI and education. No fluff. Just real milestones, real students, real stories.
+      </p>
+      <Link
+        to="/register"
+        className="bg-blue-600 text-white px-6 py-3 rounded-xl text-lg font-semibold hover:bg-blue-700 transition"
+      >
+        Get Started
+      </Link>
+    </div>
+  );
+}
+
+
+// AboutPage.tsx
+import React from "react";
+
+export default function AboutPage() {
+  return (
+    <div className="max-w-4xl mx-auto px-6 py-12 text-gray-800 dark:text-gray-100">
+      <h1 className="text-3xl md:text-5xl font-bold mb-6 text-center">
+        About BEAT3 Social
+      </h1>
+      <p className="text-lg mb-4">
+        BEAT3 Social is a next-generation platform where educators, parents, and AI advocates come together to spotlight academic growth, educational moments, and digital creativity. We are reimagining social media as a space where learning is the trend.
+      </p>
+      <p className="text-lg mb-4">
+        Our mission is to create a safe, smart, and empowering environment for teachers and families to connect over school wins, projects, and new AI tools in education. Every post is about growth, knowledge, and possibility.
+      </p>
+      <p className="text-lg mb-4">
+        Built with Firebase, powered by AI, and backed by Web3 (but only when needed), our platform supports image and video uploads, tokenized recognition of achievements, and strict moderation to keep the focus on learning.
+      </p>
+      <p className="text-lg mb-4">
+        If it’s not about AI or education, it doesn’t belong. That’s the BEAT3 Social standard.
+      </p>
+    </div>
+  );
+}
