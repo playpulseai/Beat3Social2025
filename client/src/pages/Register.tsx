@@ -183,11 +183,12 @@ const Register: React.FC = () => {
                     <SelectItem value="teacher">Teacher</SelectItem>
                     <SelectItem value="educator">Educator</SelectItem>
                     <SelectItem value="parent">Parent</SelectItem>
+                    <SelectItem value="admin">Admin</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {(formData.role === "teacher" || formData.role === "educator") && (
+              {(formData.role === "teacher" || formData.role === "educator" || formData.role === "admin") && (
                 <div>
                   <Label htmlFor="workEmail">
                     Work Email *
