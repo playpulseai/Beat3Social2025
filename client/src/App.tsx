@@ -106,6 +106,13 @@ const Router: React.FC = () => {
         </ProtectedRoute>
       </Route>
 
+      {/* Admin route */}
+      <Route path="/admin">
+        <ProtectedRoute>
+          <Feed />
+        </ProtectedRoute>
+      </Route>
+
       {/* Analytics route (placeholder) */}
       <Route path="/analytics">
         <ProtectedRoute>
