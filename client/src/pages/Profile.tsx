@@ -257,13 +257,15 @@ const Profile: React.FC = () => {
                   </div>
                 </div>
 
-                <Button
-                  onClick={() => setIsEditing(!isEditing)}
-                  variant={isEditing ? "outline" : "default"}
-                  disabled={isLoading}
-                >
-                  {isEditing ? "Cancel" : "Edit Profile"}
-                </Button>
+                {!isEditing && (
+                  <Button
+                    onClick={() => setIsEditing(true)}
+                    variant="default"
+                    disabled={isLoading}
+                  >
+                    Edit Profile
+                  </Button>
+                )}
               </div>
 
               {/* Stats */}

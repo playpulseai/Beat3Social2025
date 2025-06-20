@@ -25,7 +25,7 @@ const Navigation: React.FC<NavigationProps> = ({ onOpenAdminDashboard }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { path: "/", label: "Feed", page: "feed" },
+    { path: "/dashboard", label: "Feed", page: "feed" },
     { path: "/create", label: "Create", page: "create" },
     { path: "/nft", label: "NFT Mint", page: "nft" },
     { path: "/profile", label: "Profile", page: "profile" },
@@ -49,8 +49,8 @@ const Navigation: React.FC<NavigationProps> = ({ onOpenAdminDashboard }) => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
-              <Link href="/">
-                <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">Deep3 Social</h1>
+              <Link href="/dashboard">
+                <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">Beat3 Social</h1>
                 <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">B3 Platform</span>
               </Link>
             </div>
