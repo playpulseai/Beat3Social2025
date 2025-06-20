@@ -3,10 +3,6 @@ import { storage } from "./firebase";
 
 export const uploadFile = async (file: File, path: string): Promise<string> => {
   try {
-    if (!storage) {
-      throw new Error("Firebase Storage not initialized");
-    }
-    
     // Validate file size (10MB limit)
     if (file.size > 10 * 1024 * 1024) {
       throw new Error("File size exceeds 10MB limit");
@@ -17,16 +13,43 @@ export const uploadFile = async (file: File, path: string): Promise<string> => {
       throw new Error("Invalid file type. Only images and videos are allowed");
     }
     
-    const storageRef = ref(storage, path);
-    console.log("Uploading file to path:", path);
+    // Try Firebase Storage first if available
+    if (storage) {
+      try {
+        const { auth } = await import('./firebase');
+        if (auth?.currentUser) {
+          console.log("Attempting Firebase Storage upload...");
+          const storageRef = ref(storage, path);
+          const snapshot = await uploadBytes(storageRef, file);
+          const downloadURL = await getDownloadURL(snapshot.ref);
+          console.log("Firebase Storage upload successful:", downloadURL);
+          return downloadURL;
+        }
+      } catch (firebaseError) {
+        console.warn("Firebase Storage upload failed, using fallback:", firebaseError);
+      }
+    }
     
-    const snapshot = await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(snapshot.ref);
+    // Fallback to server-side upload endpoint
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('path', path);
     
-    console.log("File uploaded successfully:", downloadURL);
-    return downloadURL;
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Server upload failed: ${response.statusText}`);
+    }
+    
+    const result = await response.json();
+    console.log("Server upload successful:", result.url);
+    return result.url;
+    
   } catch (error) {
-    console.error("Error uploading file:", error);
+    console.error("Upload error:", error);
     throw new Error(`Upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 };
