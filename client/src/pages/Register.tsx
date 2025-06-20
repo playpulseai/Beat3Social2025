@@ -113,7 +113,7 @@ const Register: React.FC = () => {
         {/* Header */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-            Deep3 Social
+            Beat3 Social
           </h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-6">
             B3 Platform

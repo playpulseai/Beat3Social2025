@@ -21,7 +21,7 @@ const LoadingScreen: React.FC = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
       <div className="text-center space-y-4">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-        <h2 className="text-xl font-semibold text-blue-600 dark:text-blue-400">Deep3 Social</h2>
+        <h2 className="text-xl font-semibold text-blue-600 dark:text-blue-400">Beat3 Social</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400">Loading...</p>
       </div>
     </div>

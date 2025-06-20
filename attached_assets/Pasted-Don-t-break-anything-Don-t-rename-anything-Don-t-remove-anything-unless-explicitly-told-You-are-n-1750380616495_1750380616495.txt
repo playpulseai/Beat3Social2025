@@ -1,0 +1,65 @@
+Don’t break anything. Don’t rename anything. Don’t remove anything unless explicitly told. You are now restoring the Deep3 Social (B3) app to full operating condition.
+
+You are the lead system developer for Deep3 Social — a Web3 education-first social media platform, built for teachers, educators, and parents to share content related ONLY to AI and education.
+
+Your mission:
+1. Rebuild the entire homepage, about page, registration/login pages, user profile, and social feed.
+2. Match the visual structure and layout of Bluesky (bsky.app) — simple, clean, with timeline-first UI.
+3. All pages must be mobile-first, Tailwind CSS styled, and fully responsive.
+
+🔥 Key Features:
+- Email-based sign-up (no wallet required unless minting)
+- After email/password signup: prompt to create full profile (name, profile pic, role: Teacher, Parent, Educator)
+- All work email registrations (like .edu or .org) are marked “Needs Approval”
+- Admin (derrickshaw@playpulseai.com) will approve and assign checkmarks to verified teachers
+- Content allowed: AI-related or education-related only
+- Moderation agents silently monitor content for unrelated/off-topic posts
+- Users can post text, upload images, and upload short videos (mp4 only, keep light)
+- Likes, reposts, comments, and share buttons for each post
+- NFT Minting optional: When uploading a post, user can select “Mint this post” (show fee info)
+- No wallet connection shown until minting — default wallet is Foxfire, but user can connect any
+- Mint fees shown on mint screen only (add placeholder fee table: platform fee, royalty, gas)
+- Profile pages show profile picture, name, role, checkmark (if approved), and post history
+- Feed algorithm shows all public posts chronologically (since this is an early-stage platform)
+- Users must register and create profile before viewing full feed
+
+⚙️ Infrastructure Requirements:
+- Use Firebase for:
+  - Auth (email/password)
+  - Firestore (users, posts, roles, verifications)
+  - Storage (images, videos)
+  - Admin functions (approval, deletion, logs)
+- DO NOT include any production/deployment scripts yet
+- Use Vite for dev server
+- All routes must be defined and structured cleanly (/, /about, /register, /login, /feed, /mint, /admin)
+
+🛠️ Pages to Build:
+- `/`: Homepage
+    - Headline: “Where AI Meets Education”
+    - Subtext: “A community platform for teachers, parents, and educators building the future”
+    - CTA Buttons: [Join Now] [Login] [Explore Feed]
+    - Graphics: Diverse students, classrooms, AI visuals (placeholder images)
+- `/about`: About Page
+    - Text: “Deep3 Social is a platform built to empower educators and families to share, learn, and grow together around the intersection of AI and education.”
+    - Include “Our Mission”, “Why Education + Web3”, and “Moderation Promise” sections.
+- `/register`: Registration (email, name, password)
+- `/login`: Login
+- `/create-profile`: Upload profile picture, select role (teacher/parent/educator)
+- `/feed`: Main feed with timeline-style posts
+- `/mint`: Mint content (text + media) into NFT, only place where wallet appears
+- `/admin`: Admin-only dashboard for user approvals, role assignment, and deletions
+
+🔒 Agent Behavior Rules:
+- Never auto-approve users with personal emails (gmail/hotmail/yahoo)
+- Only show checkmarks to verified teacher accounts
+- All moderation actions must be logged (use moderation_logs collection in Firestore)
+- Admin email: derrickshaw@playpulseai.com must have superadmin role
+- Only show wallet UI on the mint page
+
+🚨 Security:
+- No smart contract integration yet — prepare the system, but do not deploy any contract logic
+- Mint function can be simulated with “Mint coming soon” state
+
+✅ GOAL:
+Get the platform fully rebuilt and running locally. All front-end logic, Firebase integration, profile management, and feed visibility must be working. Save minting logic for last.
+

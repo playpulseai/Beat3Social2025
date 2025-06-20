@@ -56,7 +56,7 @@ const Login: React.FC = () => {
         {/* Header */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-            Deep3 Social
+            Beat3 Social
           </h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-6">
             B3 Platform
@@ -148,7 +148,7 @@ const Login: React.FC = () => {
         {/* Platform Info */}
         <div className="text-center">
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            Deep3 Social (B3) - AI & Education Platform
+            Beat3 Social (B3) - AI & Education Platform
           </p>
           <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
             Connecting educators, students, and parents through technology
