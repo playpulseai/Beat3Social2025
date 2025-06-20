@@ -13,7 +13,7 @@ const mockUsers: User[] = [
     updatedAt: new Date("2025-01-01"),
     stats: { posts: 5, following: 12, followers: 25 },
     profilePicture: "/api/placeholder/40/40",
-    bio: "Founder of Beat3 Social - Revolutionizing education through Web3"
+    bio: "Founder of Beat3 Social - Where AI meets education. Revolutionizing learning through Web3 technology."
   },
   {
     id: "user-teacher-1",
