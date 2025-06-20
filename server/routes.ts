@@ -1,6 +1,9 @@
 import type { Express } from "express";
 import express from "express";
 import { createServer, type Server } from "http";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
 import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -30,22 +33,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // File upload fallback endpoint
-  app.post("/api/upload", (req, res) => {
+  // Create uploads directory if it doesn't exist
+  const uploadsDir = path.join(process.cwd(), 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+
+  // Configure multer for file uploads
+  const upload = multer({
+    storage: multer.diskStorage({
+      destination: (req, file, cb) => {
+        cb(null, uploadsDir);
+      },
+      filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const extension = path.extname(file.originalname);
+        cb(null, `${file.fieldname}-${uniqueSuffix}${extension}`);
+      }
+    }),
+    limits: {
+      fileSize: 10 * 1024 * 1024 // 10MB limit
+    },
+    fileFilter: (req, file, cb) => {
+      const allowedTypes = /jpeg|jpg|png|gif|webp/;
+      const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+      const mimetype = allowedTypes.test(file.mimetype);
+      
+      if (mimetype && extname) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only image files are allowed'));
+      }
+    }
+  });
+
+  // File upload endpoint
+  app.post("/api/upload", upload.single('file'), (req, res) => {
     try {
-      // Generate a unique file ID and return a placeholder URL
-      const fileId = `uploaded-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      const mockUrl = `/api/placeholder/150/150?text=${encodeURIComponent('Profile Photo')}&id=${fileId}`;
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+      
+      const fileUrl = `/uploads/${req.file.filename}`;
       
       res.json({ 
         success: true, 
-        url: mockUrl,
-        message: 'File uploaded successfully (using fallback storage)'
+        url: fileUrl,
+        filename: req.file.filename,
+        originalName: req.file.originalname,
+        size: req.file.size,
+        message: 'File uploaded successfully'
       });
     } catch (error) {
+      console.error('Upload error:', error);
       res.status(500).json({ error: "Upload failed", details: error });
     }
   });
+
+  // Serve uploaded files
+  app.use('/uploads', express.static(uploadsDir));
 
   const httpServer = createServer(app);
   return httpServer;
