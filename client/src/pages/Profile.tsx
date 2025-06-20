@@ -50,8 +50,8 @@ const Profile: React.FC = () => {
     setIsLoading(true);
     try {
       await updateProfile({
-        displayName: formData.displayName,
-        bio: formData.bio,
+        displayName: formData.displayName.trim(),
+        bio: formData.bio.trim(),
       });
       
       setIsEditing(false);
@@ -60,6 +60,7 @@ const Profile: React.FC = () => {
         description: "Your profile has been updated successfully.",
       });
     } catch (error) {
+      console.error("Profile update error:", error);
       toast({
         title: "Error",
         description: "Failed to update profile. Please try again.",

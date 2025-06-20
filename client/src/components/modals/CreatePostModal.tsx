@@ -76,16 +76,6 @@ const CreatePostModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      // Upload media files first
-      const mediaUrls: string[] = [];
-      if (mediaFiles.length > 0) {
-        const uploadPromises = mediaFiles.map((file) =>
-          uploadPostMedia(file, user.uid, Date.now().toString())
-        );
-        const urls = await Promise.all(uploadPromises);
-        mediaUrls.push(...urls);
-      }
-
       const postData: CreatePostData = {
         content: content.trim(),
         tags: selectedTags,

@@ -136,10 +136,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateProfile = async (data: Partial<User>) => {
     if (user && userData) {
-      const updatedUserData = { ...userData, ...data };
+      const updatedUserData = { ...userData, ...data, updatedAt: new Date() };
       setUserData(updatedUserData);
       const sessionData = { ...user, userData: updatedUserData };
       setStoredUser(sessionData);
+      
+      // Persist to localStorage
+      try {
+        localStorage.setItem('beat3_user', JSON.stringify(sessionData));
+      } catch (error) {
+        console.error('Failed to persist profile update:', error);
+      }
     }
   };
 
