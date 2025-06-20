@@ -33,7 +33,7 @@ const Login: React.FC = () => {
         title: "Welcome back!",
         description: "You have been successfully logged in.",
       });
-      setLocation("/");
+      setLocation("/dashboard");
     } catch (error: any) {
       console.error("Login error:", error);
       setError(error.message || "Failed to log in. Please check your credentials.");

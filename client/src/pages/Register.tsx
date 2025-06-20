@@ -78,11 +78,11 @@ const Register: React.FC = () => {
       toast({
         title: "Account created successfully!",
         description: formData.role === "parent" 
-          ? "Welcome to Deep3 Social! You can start using the platform immediately."
+          ? "Welcome to Beat3 Social! You can start using the platform immediately."
           : "Your account has been created. It will be reviewed for verification within 24 hours.",
       });
       
-      setLocation("/");
+      setLocation("/dashboard");
     } catch (error: any) {
       console.error("Registration error:", error);
       setError(error.message || "Failed to create account. Please try again.");
