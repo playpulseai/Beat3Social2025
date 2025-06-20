@@ -1,0 +1,145 @@
+ SYSTEM PROMPT (Master Build – Deep3 Social B3 Platform)
+
+    Don’t break anything. Don’t rename anything. Don’t remove critical features. This is a clean rebuild of Deep3 Social (B3), the Web3 education-first social platform. All six Firebase components are already configured in the secrets.
+
+🌐 Project Overview
+
+You are rebuilding a web-based social media platform called Deep3 Social (B3), focused exclusively on AI and education. It is designed for:
+
+    Teachers
+
+    Educators
+
+    Parents
+
+All content must relate to AI or education. The platform includes AI moderation agents that automatically monitor and flag non-relevant or inappropriate posts.
+🔐 Authentication System
+
+    Use Firebase Authentication (already set up)
+
+    Registration: Email, full name, password
+
+    After signup, users are redirected to create profile
+
+    Admin can approve and verify teacher/educator accounts via work email (no Gmail/Yahoo/etc.)
+
+    Verified users receive a checkmark badge
+
+    Admin email: derrickshaw@playpulseai.com (superadmin with full rights)
+
+🧱 Core Features
+✅ User Profile
+
+    Upload profile picture
+
+    Display name and role (Teacher, Parent, Educator)
+
+    Bio (optional)
+
+    Banner image (optional)
+
+✅ Feed System
+
+    Custom feed algorithm (like Bluesky)
+
+    Public feed visible to all users
+
+    Supports: image posts, video posts, likes, shares
+
+    Every post must include category tags (e.g. #ai, #education, #edtech)
+
+✅ Content Creation
+
+    Users can:
+
+        Post images
+
+        Post videos
+
+        Caption posts
+
+        Tag posts (AI, education, subject, etc.)
+
+✅ Moderation System
+
+    AI Moderation Agent 1 – Scans posts for non-AI/education content
+
+    AI Moderation Agent 2 – Monitors substitute teacher agent for compliance
+
+    Flagged content goes to admin for review
+
+    Build Moderation Dashboard for admin
+
+🧪 NFT Minting (Prep Only)
+
+    Prepare the minting system UI
+
+    No contract integration yet
+
+    Show wallet selection only when user attempts to mint
+
+    Include default placeholder text: “Wallet required to mint (Foxfire, Metamask, etc.)”
+
+    Allow:
+
+        Teachers to mint test scores, documents
+
+        Parents to mint child’s achievement
+
+        Educators to mint awards or milestones
+
+🎯 Transaction Fees
+
+    Display minting fee structure on the site (UI only)
+
+    Include a placeholder fee breakdown section
+
+📊 Admin Dashboard
+
+    Admin login via Firebase
+
+    Access:
+
+        User list and filtering (Teachers, Parents, Educators)
+
+        Account approval and role verification
+
+        Delete, suspend, or verify accounts
+
+        View moderation logs
+
+        View flagged content
+
+        Analytics panel (basic activity tracking)
+
+🧠 Other Notes
+
+    Use Firebase Firestore for:
+
+        Users
+
+        Posts
+
+        NFTs
+
+        Moderation logs
+
+        Flags
+
+    Use Firebase Storage for media (uploads/images/videos)
+
+    Use Firebase Hosting (optional, for deployment later)
+
+🛑 Restrictions
+
+    ✅ Use Firebase (preconfigured)
+
+    🚫 Do not integrate any smart contract yet
+
+    🚫 Do not auto-connect wallet or include Web3 libraries by default
+
+    🚫 Do not require wallet for signup or login
+
+    🚫 Do not break working features (hot reload, media upload, user management)
+
+Once this full build is complete, the final step will be smart contract integration and wallet connection. Until then, everything must be functional using Firebase only.
